@@ -1,0 +1,21 @@
+
+# CLI tool, only in development environment.
+# https://goframe.org/docs/cli
+gfcli:
+  gen:
+    dao:
+      - link: "mysql:rensoft:rensoft12345@tcp(10.0.0.11:3306)/rs-admin?charset=utf8mb4&parseTime=True&loc=Local"
+        tables: "user, unit"
+        descriptionTag: true
+        stdTime: true
+
+    logic:
+      - link: "mysql:rensoft:rensoft12345@tcp(10.0.0.11:3306)/rs-admin?charset=utf8mb4&parseTime=True&loc=Local"
+        tables: "user, unit"
+        descriptionTag: true
+        stdTime: true
+
+  docker:
+    build: "-a amd64 -s linux -p temp -ew"
+    tagPrefixes:
+      - my.image.pub/my-app

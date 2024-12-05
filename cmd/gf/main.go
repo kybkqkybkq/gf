@@ -9,6 +9,8 @@ package main
 import (
 	"github.com/gogf/gf/cmd/gf/v2/gfcmd"
 	"github.com/gogf/gf/cmd/gf/v2/internal/utility/mlog"
+
+	// _ "github.com/gogf/gf/contrib/drivers/mysql/v2"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/os/gctx"
 )
