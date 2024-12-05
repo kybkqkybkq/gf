@@ -37,78 +37,118 @@ var (
 
 `
 
-const TemplateGenLogicInternalContent = `
-// ==========================================================================
-// Code generated and maintained by GoFrame CLI tool. DO NOT EDIT. {TplCreatedAtDatetimeStr}
-// ==========================================================================
+// const TemplateGenLogicInternalContent = `
+// // ==========================================================================
+// // Code generated and maintained by GoFrame CLI tool. DO NOT EDIT. {TplCreatedAtDatetimeStr}
+// // ==========================================================================
 
-package internal
+// package internal
+
+// import (
+// 	"context"
+
+// 	"github.com/gogf/gf/v2/database/gdb"
+// 	"github.com/gogf/gf/v2/frame/g"
+// )
+
+// // {TplTableNameCamelCase}Logic is the data access object for table {TplTableName}.
+// type {TplTableNameCamelCase}Logic struct {
+// 	table   string          // table is the underlying table name of the DAO.
+// 	group   string          // group is the database configuration group name of current DAO.
+// 	columns {TplTableNameCamelCase}Columns // columns contains all the column names of Table for convenient usage.
+// }
+
+// // {TplTableNameCamelCase}Columns defines and stores column names for table {TplTableName}.
+// type {TplTableNameCamelCase}Columns struct {
+// 	{TplColumnDefine}
+// }
+
+// // {TplTableNameCamelLowerCase}Columns holds the columns for table {TplTableName}.
+// var {TplTableNameCamelLowerCase}Columns = {TplTableNameCamelCase}Columns{
+// 	{TplColumnNames}
+// }
+
+// // New{TplTableNameCamelCase}Logic creates and returns a new DAO object for table data access.
+// func New{TplTableNameCamelCase}Logic() *{TplTableNameCamelCase}Logic {
+// 	return &{TplTableNameCamelCase}Logic{
+// 		group:   "{TplGroupName}",
+// 		table:   "{TplTableName}",
+// 		columns: {TplTableNameCamelLowerCase}Columns,
+// 	}
+// }
+
+// // DB retrieves and returns the underlying raw database management object of current DAO.
+// func (logic *{TplTableNameCamelCase}Logic) DB() gdb.DB {
+// 	return g.DB(logic.group)
+// }
+
+// // Table returns the table name of current logic.
+// func (logic *{TplTableNameCamelCase}Logic) Table() string {
+// 	return logic.table
+// }
+
+// // Columns returns all column names of current logic.
+// func (logic *{TplTableNameCamelCase}Logic) Columns() {TplTableNameCamelCase}Columns {
+// 	return logic.columns
+// }
+
+// // Group returns the configuration group name of database of current logic.
+// func (logic *{TplTableNameCamelCase}Logic) Group() string {
+// 	return logic.group
+// }
+
+// // Ctx creates and returns the Model for current DAO, It automatically sets the context for current operation.
+// func (logic *{TplTableNameCamelCase}Logic) Ctx(ctx context.Context) *gdb.Model {
+// 	return logic.DB().Model(logic.table).Safe().Ctx(ctx)
+// }
+
+// // Transaction wraps the transaction logic using function f.
+// // It rollbacks the transaction and returns the error from function f if it returns non-nil error.
+// // It commits the transaction and returns nil if function f returns nil.
+// //
+// // Note that, you should not Commit or Rollback the transaction in function f
+// // as it is automatically handled by this function.
+// func (logic *{TplTableNameCamelCase}Logic) Transaction(ctx context.Context, f func(ctx context.Context, tx gdb.TX) error) (err error) {
+// 	return logic.Ctx(ctx).Transaction(ctx, f)
+// }
+// `
+
+// var dir = filepath.Base(TplImportPrefix)
+
+const TemplateGenLogicInternalContent = `package internal
 
 import (
 	"context"
-
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
+	"internal/dao"
+	"internal/model/entity"
+	"internal/service"
+	"log"
 )
 
-// {TplTableNameCamelCase}Logic is the data access object for table {TplTableName}.
-type {TplTableNameCamelCase}Logic struct {
-	table   string          // table is the underlying table name of the DAO.
-	group   string          // group is the database configuration group name of current DAO.
-	columns {TplTableNameCamelCase}Columns // columns contains all the column names of Table for convenient usage.
+func init() {
+	// service.Register{TplTableNameCamelCase}(News{TplTableNameCamelCase}())
 }
 
-// {TplTableNameCamelCase}Columns defines and stores column names for table {TplTableName}.
-type {TplTableNameCamelCase}Columns struct {
-	{TplColumnDefine}
+func News{TplTableNameCamelCase}() *s{TplTableNameCamelCase} {
+	return &s{TplTableNameCamelCase}{}
 }
 
-// {TplTableNameCamelLowerCase}Columns holds the columns for table {TplTableName}.
-var {TplTableNameCamelLowerCase}Columns = {TplTableNameCamelCase}Columns{
-	{TplColumnNames}
+type s{TplTableNameCamelCase} struct {
 }
 
-// New{TplTableNameCamelCase}Logic creates and returns a new DAO object for table data access.
-func New{TplTableNameCamelCase}Logic() *{TplTableNameCamelCase}Logic {
-	return &{TplTableNameCamelCase}Logic{
-		group:   "{TplGroupName}",
-		table:   "{TplTableName}",
-		columns: {TplTableNameCamelLowerCase}Columns,
-	}
-}
+func (*s{TplTableNameCamelCase}) Create{TplTableNameCamelCase}(ctx context.Context, in entity.{TplTableNameCamelCase}) error {
+	var {TplTableName} entity.{TplTableNameCamelCase}
+	// {TplTableName}.Name = in.Name
+	// {TplTableName}.Height = in.Height
+	// {TplTableName}.Longitude = in.Longitude
+	// {TplTableName}.Latitude = in.Latitude
+	// {TplTableName}.Head = in.Head
+	// {TplTableName}.Pitch = in.Pitch
+	// {TplTableName}.Roll = in.Roll
 
-// DB retrieves and returns the underlying raw database management object of current DAO.
-func (logic *{TplTableNameCamelCase}Logic) DB() gdb.DB {
-	return g.DB(logic.group)
-}
-
-// Table returns the table name of current logic.
-func (logic *{TplTableNameCamelCase}Logic) Table() string {
-	return logic.table
-}
-
-// Columns returns all column names of current logic.
-func (logic *{TplTableNameCamelCase}Logic) Columns() {TplTableNameCamelCase}Columns {
-	return logic.columns
-}
-
-// Group returns the configuration group name of database of current logic.
-func (logic *{TplTableNameCamelCase}Logic) Group() string {
-	return logic.group
-}
-
-// Ctx creates and returns the Model for current DAO, It automatically sets the context for current operation.
-func (logic *{TplTableNameCamelCase}Logic) Ctx(ctx context.Context) *gdb.Model {
-	return logic.DB().Model(logic.table).Safe().Ctx(ctx)
-}
-
-// Transaction wraps the transaction logic using function f.
-// It rollbacks the transaction and returns the error from function f if it returns non-nil error.
-// It commits the transaction and returns nil if function f returns nil.
-//
-// Note that, you should not Commit or Rollback the transaction in function f
-// as it is automatically handled by this function.
-func (logic *{TplTableNameCamelCase}Logic) Transaction(ctx context.Context, f func(ctx context.Context, tx gdb.TX) error) (err error) {
-	return logic.Ctx(ctx).Transaction(ctx, f)
+	_, err := dao.{TplTableNameCamelCase}.Ctx(ctx).Insert({TplTableName})
+	log.Println("{TplTableName}====", {TplTableName})
+	log.Println("err====", err)
+	return err
 }
 `
