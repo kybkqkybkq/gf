@@ -108,6 +108,7 @@ generated json tag case for model struct, cases are as follows:
 	CGenLogicBriefTplLogicEntityPath   = `template file path for logic entity file`
 
 	tplVarTableName               = `{TplTableName}`
+	tplVarBasePath                = `{TplBasePath}`
 	tplVarTableNameCamelCase      = `{TplTableNameCamelCase}`
 	tplVarTableNameCamelLowerCase = `{TplTableNameCamelLowerCase}`
 	tplVarPackageImports          = `{TplPackageImports}`

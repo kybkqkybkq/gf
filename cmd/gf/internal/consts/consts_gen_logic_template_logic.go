@@ -18,7 +18,7 @@ import (
 )
 
 // internal{TplTableNameCamelCase}Logic is internal type for wrapping internal DAO implements.
-type internal{TplTableNameCamelCase}Logic = *internal.{TplTableNameCamelCase}Logic
+type internal{TplTableNameCamelCase}Logic = *internal.s{TplTableNameCamelCase}
 
 // {TplTableNameCamelLowerCase}Logic is the data access object for table {TplTableName}.
 // You can define custom methods on it to extend its functionality as you wish.
@@ -29,7 +29,7 @@ type {TplTableNameCamelLowerCase}Logic struct {
 var (
 	// {TplTableNameCamelCase} is globally public accessible object for table {TplTableName} operations.
 	{TplTableNameCamelCase} = {TplTableNameCamelLowerCase}Logic{
-		internal.New{TplTableNameCamelCase}Logic(),
+		internal.News{TplTableNameCamelCase}(),
 	}
 )
 
@@ -115,18 +115,17 @@ var (
 
 // var dir = filepath.Base(TplImportPrefix)
 
-const TemplateGenLogicInternalContent = `package internal
+const TemplateGenLogicInternalContent = `package {TplTableName}
 
 import (
 	"context"
-	"internal/dao"
-	"internal/model/entity"
-	"internal/service"
+	"{TplBasePath}/internal/dao"
+	"{TplBasePath}/internal/model/entity"
 	"log"
 )
 
 func init() {
-	// service.Register{TplTableNameCamelCase}(News{TplTableNameCamelCase}())
+	service.Register{TplTableNameCamelCase}(News{TplTableNameCamelCase}())
 }
 
 func News{TplTableNameCamelCase}() *s{TplTableNameCamelCase} {
@@ -137,18 +136,23 @@ type s{TplTableNameCamelCase} struct {
 }
 
 func (*s{TplTableNameCamelCase}) Create{TplTableNameCamelCase}(ctx context.Context, in entity.{TplTableNameCamelCase}) error {
-	var {TplTableName} entity.{TplTableNameCamelCase}
-	// {TplTableName}.Name = in.Name
-	// {TplTableName}.Height = in.Height
-	// {TplTableName}.Longitude = in.Longitude
-	// {TplTableName}.Latitude = in.Latitude
-	// {TplTableName}.Head = in.Head
-	// {TplTableName}.Pitch = in.Pitch
-	// {TplTableName}.Roll = in.Roll
+	_, err := dao.{TplTableNameCamelCase}.Ctx(ctx).Insert(in)
+	return err
+}
 
-	_, err := dao.{TplTableNameCamelCase}.Ctx(ctx).Insert({TplTableName})
-	log.Println("{TplTableName}====", {TplTableName})
-	log.Println("err====", err)
+func (*s{TplTableNameCamelCase}) Delete{TplTableNameCamelCase}(ctx context.Context, id int) error {
+	_, err := dao.{TplTableNameCamelCase}.Ctx(ctx).Where("id", id).Delete()
+	return err
+}
+
+func (*s{TplTableNameCamelCase}) List{TplTableNameCamelCase}(ctx context.Context) ([]entity.{TplTableNameCamelCase}, error) {
+	{TplTableName}s := []entity.{TplTableNameCamelCase}{}
+	err := dao.{TplTableNameCamelCase}.Ctx(ctx).Scan(&{TplTableName}s)
+	return {TplTableName}s, err
+}
+
+func (*s{TplTableNameCamelCase}) Update{TplTableNameCamelCase}(ctx context.Context, id int) error {
+	_, err := dao.{TplTableNameCamelCase}.Ctx(ctx).Where("id", id).Update()
 	return err
 }
 `

@@ -2,10 +2,9 @@ package internal
 
 import (
 	"context"
+	"gf/internal/dao"
+	"gf/internal/model/entity"
 	"log"
-
-	"github.com/gogf/gf/cmd/gf/v2/internal/dao"
-	"github.com/gogf/gf/cmd/gf/v2/internal/model/entity"
 )
 
 func init() {
@@ -29,7 +28,7 @@ func (*sUnit) CreateUnit(ctx context.Context, in entity.Unit) error {
 	// unit.Pitch = in.Pitch
 	// unit.Roll = in.Roll
 
-	_, err := dao.Unit.Ctx(ctx).Insert(unit)
+	_, err := dao.Unit.Ctx(ctx).Insert(in)
 	log.Println("unit====", unit)
 	log.Println("err====", err)
 	return err

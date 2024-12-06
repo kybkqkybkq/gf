@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -76,14 +77,14 @@ func generateLogicSingle(ctx context.Context, in generateLogicSingleInput) {
 		fileName += "_table"
 	}
 
-	// logic - index
-	generateLogicIndex(generateLogicIndexInput{
-		generateLogicSingleInput: in,
-		TableNameCamelCase:       tableNameCamelCase,
-		TableNameCamelLowerCase:  tableNameCamelLowerCase,
-		ImportPrefix:             importPrefix,
-		FileName:                 fileName,
-	})
+	// // logic - index
+	// generateLogicIndex(generateLogicIndexInput{
+	// 	generateLogicSingleInput: in,
+	// 	TableNameCamelCase:       tableNameCamelCase,
+	// 	TableNameCamelLowerCase:  tableNameCamelLowerCase,
+	// 	ImportPrefix:             importPrefix,
+	// 	FileName:                 fileName,
+	// })
 
 	// logic - internal
 	generateLogicInternal(generateLogicInternalInput{
@@ -135,9 +136,15 @@ type generateLogicInternalInput struct {
 	ImportPrefix            string
 	FileName                string
 	FieldMap                map[string]*gdb.TableField
+	BasePath                string
 }
 
 func generateLogicInternal(in generateLogicInternalInput) {
+	in.BasePath, _ = os.Getwd()
+	tmplist := strings.Split(in.BasePath, "/")
+	in.BasePath = tmplist[len(tmplist)-1]
+
+	in.DirPathLogicInternal = in.DirPathLogic + "/" + in.FileName
 	path := filepath.FromSlash(gfile.Join(in.DirPathLogicInternal, in.FileName+".go"))
 	removeFieldPrefixArray := gstr.SplitAndTrim(in.RemoveFieldPrefix, ",")
 	modelContent := gstr.ReplaceByMap(
@@ -145,6 +152,7 @@ func generateLogicInternal(in generateLogicInternalInput) {
 		g.MapStrStr{
 			tplVarImportPrefix:            in.ImportPrefix,
 			tplVarTableName:               in.TableName,
+			tplVarBasePath:                in.BasePath,
 			tplVarGroupName:               in.Group,
 			tplVarTableNameCamelCase:      in.TableNameCamelCase,
 			tplVarTableNameCamelLowerCase: in.TableNameCamelLowerCase,

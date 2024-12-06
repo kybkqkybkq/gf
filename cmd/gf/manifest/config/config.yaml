@@ -1,0 +1,19 @@
+# https://goframe.org/docs/web/server-config-file-template
+server:
+  address:     ":8080"
+  openapiPath: "/api.json"
+  swaggerPath: "/swagger"
+
+# https://goframe.org/docs/core/glog-config
+logger:
+  level : "all"
+  stdout: true
+
+# https://goframe.org/docs/core/gdb-config-file
+database:
+  default:
+    link: "mysql:rensoft:rensoft12345@tcp(10.0.0.11:3306)/rs-admin?charset=utf8mb4&parseTime=True&loc=Local"
+    timeMaintainDisabled: false # 开启时间字段自动维护，true关闭
+    createdAt: "created_at"     # (可选)自动创建时间字段名称
+    updatedAt: "updated_at"     # (可选)自动更新时间字段名称
+    deletedAt: "deleted_at"     # (可选)软删除时间字段名称
